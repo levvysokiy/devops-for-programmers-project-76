@@ -1,0 +1,24 @@
+- name: Update Apt Cache
+  hosts: all
+  become: true
+  tasks:
+    - name: Populate Apt's Cache with package definitions
+      ansible.builtin.apt:
+        update_cache: true
+
+- name: Install pip and Docker
+  hosts: all
+  become: true
+  roles:
+    - geerlingguy.pip
+
+  tasks:
+    - name: Install pip
+      pip:
+        name: pip
+        state: latest
+
+    - name: Install docker
+      pip:
+        name: docker
+        state: latest
