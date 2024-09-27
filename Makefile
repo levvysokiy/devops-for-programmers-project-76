@@ -1,2 +1,4 @@
 prepare-servers:
-	ansible-playbook playbook.yml -i inventory.ini
+	ansible-playbook playbook.yml
+deploy:
+	ansible-playbook deployment.yml	
