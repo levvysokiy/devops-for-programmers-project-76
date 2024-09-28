@@ -4,7 +4,7 @@
     - name: Copy env
       ansible.builtin.template:
         src: .env.j2
-        dest: .env
+        dest: '{{ env_file_path }}'
         mode: '0644'
 
     - name: Start Redmine
@@ -13,5 +13,5 @@
         image: 'redmine:latest'
         restart_policy: always
         state: started
-        env_file: .env
+        env_file: '{{ env_file_path }}'
         ports: '80:3000'
