@@ -1,9 +1,7 @@
 ### Hexlet tests and linter status:
 [![Actions Status](https://github.com/levvysokiy/devops-for-programmers-project-76/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/levvysokiy/devops-for-programmers-project-76/actions)
 
-### Требования к системе
-- ansible
-- make
+
 
 ## Ссылка на приложение:
 https://levvysokiy.blog
@@ -13,9 +11,10 @@ https://levvysokiy.blog
 1. Установите Ansible
 2. Установите необходимые роли и коллекции:
 ```bash
-ansible-galaxy install -r requirements.yml
+make install-deps
 ```
 3. Подготовьте файл инвентаризации inventory.ini, пример уже предоставлен в проекте.
+4. Создайте в корне проекта файл .vault_pass и поместите в него пароль для ansible-vault
 
 
 ## Запуск проекта
