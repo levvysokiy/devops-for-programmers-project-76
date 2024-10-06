@@ -5,4 +5,8 @@ redmine_db_username_public: '{{ redmine_db_username_private }}'
 redmine_secret_key_base_public: '{{ redmine_secret_key_base_private }}'
 redmine_db_password_public: '{{ redmine_db_password_private }}'
 
+datadog_api_key: '{{ datadog_api_key_private }}'
+datadog_app_key: '{{ datadog_app_key_private }}'
+datadog_site: 'us5.datadoghq.com'
+
 env_file_path: .env

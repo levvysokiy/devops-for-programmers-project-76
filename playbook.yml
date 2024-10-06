@@ -7,3 +7,19 @@
       become: true
     - role: geerlingguy.docker
       become: true
+    - role: datadog.datadog
+      become: true
+  tasks:
+    - name: Copy datadog config
+      ansible.builtin.template:
+        src: datadog.yaml.j2
+        dest: /etc/datadog-agent/conf.d/http_check.d/conf.yaml
+        owner: root
+        group: root
+        mode: 0644
+
+    - name: Start Datadog agent
+      service:
+        name: datadog-agent
+        state: restarted
+        enabled: yes
