@@ -1,18 +1,10 @@
 - hosts: all
   become: true
+  roles:
+    - geerlingguy.pip
+    - geerlingguy.docker
+
   tasks:
-    - name: Install pip
-      import_role:
-        name: geerlingguy.pip
-      tags:
-        - prepare-servers
-
-    - name: Install docker
-      import_role:
-        name: geerlingguy.docker
-      tags:
-        - prepare-servers
-
     - name: Copy env
       ansible.builtin.template:
         src: .env.j2
@@ -34,13 +26,9 @@
 
 - hosts: webservers
   become: true
+  roles:
+    - datadog.datadog
   tasks:
-    - name: Install datadog agent
-      import_role:
-        name: datadog.datadog
-      tags:
-        - prepare-servers
-
     - name: Copy datadog config
       ansible.builtin.template:
         src: datadog.yaml.j2
