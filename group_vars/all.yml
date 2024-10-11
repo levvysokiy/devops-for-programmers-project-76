@@ -1,3 +1,4 @@
+docker_service_enabled: true
 docker_service_state: started
 ansible_user: root
 ansible_ssh_private_key_file: ~/.ssh/id_rsa
