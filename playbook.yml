@@ -2,9 +2,16 @@
   become: true
   roles:
     - geerlingguy.pip
-    - geerlingguy.docker
 
   tasks:
+    - name: Install Docker package via apt
+      ansible.builtin.apt:
+        name: python3-docker
+        state: present
+        update_cache: yes
+      tags:
+        - prepare-servers
+
     - name: Copy env
       ansible.builtin.template:
         src: .env.j2
