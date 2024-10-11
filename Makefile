@@ -11,6 +11,6 @@ encrypt:
 decrypt:
 	ansible-vault decrypt --vault-password-file $(VAULT_PASS_FILE) $(VAULT_FILE)
 prepare-servers:
-	ansible-playbook playbook.yml
+	ansible-playbook playbook.yml --tags=prepare-servers --vault-password-file $(VAULT_PASS_FILE)
 deploy:
-	ansible-playbook deployment.yml --vault-password-file $(VAULT_PASS_FILE)
+	ansible-playbook playbook.yml --tags=deploy --vault-password-file $(VAULT_PASS_FILE)

@@ -1,15 +1,46 @@
----
+- hosts: all
+  become: true
+  tasks:
+    - name: Install pip
+      import_role:
+        name: geerlingguy.pip
+      tags:
+        - prepare-servers
+
+    - name: Install docker
+      import_role:
+        name: geerlingguy.docker
+      tags:
+        - prepare-servers
+
+    - name: Copy env
+      ansible.builtin.template:
+        src: .env.j2
+        dest: '{{ env_file_path }}'
+        mode: '0644'
+      tags:
+        - deploy
+
+    - name: Start Redmine
+      community.docker.docker_container:
+        name: redmine
+        image: 'redmine:5.1.3'
+        restart_policy: always
+        state: started
+        env_file: '{{ env_file_path }}'
+        ports: '{{ app_port }}:3000'
+      tags:
+        - deploy
+
 - hosts: webservers
   become: true
-
-  roles:
-    - role: geerlingguy.pip
-      become: true
-    - role: geerlingguy.docker
-      become: true
-    - role: datadog.datadog
-      become: true
   tasks:
+    - name: Install datadog agent
+      import_role:
+        name: datadog.datadog
+      tags:
+        - prepare-servers
+
     - name: Copy datadog config
       ansible.builtin.template:
         src: datadog.yaml.j2
@@ -17,9 +48,13 @@
         owner: root
         group: root
         mode: 0644
+      tags:
+        - prepare-servers
 
     - name: Start Datadog agent
       service:
         name: datadog-agent
         state: restarted
         enabled: yes
+      tags:
+        - prepare-servers
