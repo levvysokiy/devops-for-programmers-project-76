@@ -1,3 +1,4 @@
+---
 roles:
   - name: geerlingguy.pip
     src: geerlingguy.pip
@@ -8,3 +9,7 @@ roles:
   - name: datadog.datadog
     src: datadog.datadog
     version: 4.28.0
+
+collections:
+  - name: community.docker
+    version: 3.12.1
